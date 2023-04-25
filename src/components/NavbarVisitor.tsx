@@ -133,7 +133,7 @@ const VisitorNavbar = (props: Props) => {
       {/*Contact*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/GroupMemberList" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 pl-5 pr-7 px-6">
+            <Link href="/GroupMemberList" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 pl-5 pr-7 px-6 py-5">
             Members
             </Link>
           </div>

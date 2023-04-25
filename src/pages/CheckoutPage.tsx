@@ -147,59 +147,8 @@ const CheckoutPage: NextPage = () => {
 
       const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-      const useProductsHook = () => {
-        const { data, error } = useSWR('/api/orders', fetcher);
-    
-        const isLoading = !data && !error;
-        const isError = error;
-    
-    
-    
-    
-        const updateProduct = async (selectedProduct: Order) => {
-          try {
-            const response = await axios.put(`/api/orders?cart_id=${selectedProduct.cart_id}`, selectedProduct);
-            const updatedProduct = response.data;
-            mutate('/api/orders');
-            return updatedProduct;
-          } catch (error) {
-            console.error('Error updating product:', error);
-            throw error.response.data;
-          }
-        };
-    
-        const createProduct = async (newProduct) => {
-          await fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newProduct),
-          });
-    
-          mutate('/api/orders');
-        };
-    
-        //NOTE: The await fetch for this one is kind of sus, since its selectedProduct.user_id instead of user_id
-        const deleteProduct = async (cart_id) => {
-          await fetch(`/api/orders?cart_id=${cart_id}`, {
-            method: 'DELETE',
-          });
-    
-          mutate('/api/orders');
-        };
-    
-        return {
-          products: data,
-          isLoading,
-          isError,
-          updateProduct,
-          deleteProduct,
-          createProduct,
-        };
-      };
+      
 
-    
       const useProductsHookUsers = () => {
         const { data, error } = useSWR('/api/users', fetcher);
     
@@ -229,9 +178,6 @@ const CheckoutPage: NextPage = () => {
     
           mutate('/api/users');
         };
-
-
-          
 
 
     
@@ -372,37 +318,54 @@ const CheckoutPage: NextPage = () => {
         });
         return formatter.format(amount);
       }
-      const handleCheckout = async () => {
-        if (!auth.user) {
-          console.error("User not authenticated");
-          return;
-        }
-      
-        for (const cartItem of carts) {
-          const product = products.find(
-            (item) => item.ProductID === cartItem.Product_id
-          );
-      
-          if (!product) continue;
-            
-          //check this logic here
-          const newOrder: Order = {
-            cart_id: cartItem.cart_id,
-            cust_id: cartItem.cust_id,
-            Product_id: product.ProductID,
-            quantity: cartItem.quantity,
-          };
-      
-          console.log("New order:", newOrder);
-      
-          await createOrder(newOrder);
-          await deleteCart(cartItem.cart_id);
-        }
-      
-        console.log("Orders after adding products:", order);
-      
-        router.push('/');
-      };
+
+const handleCheckout = async () => {
+  if (!auth.user) {
+    console.error("User not authenticated");
+    return;
+  }
+
+  for (const cartItem of carts) {
+    const product = products.find(
+      (item) => item.ProductID === cartItem.Product_id
+    );
+
+    if (!product) continue;
+
+    // Update product quantity and number sold
+    const updatedProductSold = {
+      ...product,
+      num_sold: product.num_sold + cartItem.quantity,
+    };
+
+    await updateProduct(updatedProductSold);
+
+    const updatedProductQuantity = {
+      ...product,
+      Inv_quantity: product.Inv_quantity - cartItem.quantity,
+    };
+
+    await updateProduct(updatedProductQuantity);
+
+
+    // Check this logic here
+    const newOrder: Order = {
+      cart_id: cartItem.cart_id,
+      cust_id: cartItem.cust_id,
+      Product_id: product.ProductID,
+      quantity: cartItem.quantity,
+    };
+
+    console.log("New order:", newOrder);
+
+    await createOrder(newOrder);
+    await deleteCart(cartItem.cart_id);
+  }
+
+  console.log("Orders after adding products:", order);
+
+  router.push('/');
+};
 
 
       const falseClickProduct = (product: Product) => {
@@ -495,41 +458,11 @@ const CheckoutPage: NextPage = () => {
 
         router.push('/');
       };
-
-
-      const decreaseProductQuantity = async (ProductID: string, quantityToDecrease: number) => {
-        const productToUpdate = products.find((product) => product.ProductID === ProductID);
-      
-        if (productToUpdate) {
-          const updatedProduct: Product = {
-            ...productToUpdate,
-            Inv_quantity: productToUpdate.Inv_quantity - quantityToDecrease,
-          };
-      
-          await updateProduct(updatedProduct);
-        }
-      };
-
-      const handleQuantityChange = async (e, product) => {
-        const newQuantity = parseInt(e.target.value, 10);
-        const cartItem = carts.find((cart) => cart.Product_id === product.Product_id);
-      
-        if (cartItem) {
-          const previousQuantity = cartItem.quantity;
-          const updatedCart = { ...cartItem, quantity: newQuantity };
-          await updateCart(updatedCart);
-      
-          const inventoryChange = previousQuantity - newQuantity;
-          await decreaseProductQuantity(product.ProductID, inventoryChange);
-        } else {
-          console.error('No matching cart item found for the selected product');
-        }
-      };   
-      
+   
       return (
         <div className="min-h-screen py-6 flex flex-col items-center">
         <div className="w-full max-w-4xl">
-          <h1 className="text-3xl font-bold mb-6">Checkout Overview</h1>
+          <h1 className="text-3xl font-bold mb-6">Checkout Overview.</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
 
             {carts.map((cartItem) => {
