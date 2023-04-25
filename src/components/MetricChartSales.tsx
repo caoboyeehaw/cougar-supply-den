@@ -28,21 +28,21 @@ const PerformanceMetricChart: React.FC<MetricChartSales> = ({
   // For examples, you can create an array containing the number of products per product type
 
   const productTypeCounts = products.reduce((acc, product) => {
-    if (!acc[product.prod_type]) {
-      acc[product.prod_type] = product.num_sold;
+    if (!acc[product.p_name]) {
+      acc[product.p_name] = product.num_sold;
     } else {
-      acc[product.prod_type] += product.num_sold;
+      acc[product.p_name] += product.num_sold;
     }
     return acc;
   }, {});
   
   const chartData = Object.entries(productTypeCounts).map(([key, value]) => ({
-    prod_type: key,
+    p_name: key,
     count: value,
   }));
   
-  const updatedChartData = chartData.map((data: {prod_type: string, count: number}) => ({
-    prod_type: data.prod_type,
+  const updatedChartData = chartData.map((data: {p_name: string, count: number}) => ({
+    p_name: data.p_name,
     Quantity: data.count, 
   }));
 

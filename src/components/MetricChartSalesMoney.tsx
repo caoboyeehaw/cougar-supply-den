@@ -12,8 +12,8 @@ import {
 import { Product } from '../interfaces/ProductInterface';
 
 interface MetricChartSalesMoney {
-    products?: Product[];
-  }
+  products?: Product[];
+}
   
   const PerformanceMetricChart: React.FC<MetricChartSalesMoney> = ({
     products = [],
@@ -28,37 +28,41 @@ interface MetricChartSalesMoney {
     // For examples, you can create an array containing the number of products per product type
   
     const productTypeCounts = products.reduce((acc, product) => {
-      if (!acc[product.prod_type]) {
-        acc[product.prod_type] = product.num_sold * product.cost;
+      if (!acc[product.p_name]) {
+        acc[product.p_name] = product.num_sold * product.cost;
       } else {
-        acc[product.prod_type] += product.num_sold * product.cost;
+        acc[product.p_name] += product.num_sold * product.cost;
       }
       return acc;
     }, {});
     
     const chartData = Object.entries(productTypeCounts).map(([key, value]) => ({
-      prod_type: key,
+      p_name: key,
       count: value,
     }));
-    
-    const updatedChartData = chartData.map((data: {prod_type: string, count: number}) => ({
-      prod_type: data.prod_type,
+
+    const tooltipFormatter = (value: number, name: string, entry: any, index: number): [number, string] => {
+      return [parseFloat(value.toFixed(2)), name];
+    };
+
+    const updatedChartData = chartData.map((data: {p_name: string, count: number}) => ({
+      p_name: data.p_name,
       Revenue: data.count, 
     }));
 
-
+  
     return (
-    <ResponsiveContainer width={800} height={400}>
-      <BarChart data={updatedChartData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="prod_type" />
-        <YAxis domain={[0, maxInventory]} />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="Revenue" fill="#05b48c" />
-      </BarChart>
-    </ResponsiveContainer>
-  );
-}
-
-export default PerformanceMetricChart;
+      <ResponsiveContainer width={800} height={400}>
+        <BarChart data={updatedChartData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="p_name" />
+          <YAxis domain={[0, maxInventory]} />
+          <Tooltip formatter={tooltipFormatter} />
+          <Legend />
+          <Bar dataKey="Revenue" fill="#05b48c" />
+        </BarChart>
+      </ResponsiveContainer>
+    );
+  };
+  
+  export default PerformanceMetricChart;
