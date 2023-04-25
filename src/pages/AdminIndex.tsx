@@ -14,6 +14,7 @@ import { Users } from '../interfaces/UsersInterface';
 
 import { useAuth } from "../context/AuthContext";
 import router from "next/router";
+import Link from "next/link";
 
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -378,7 +379,7 @@ const AdminIndex: NextPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Featured Products.</h1>
+      <h1 className="text-3xl font-bold mb-6">Available Products Overview.</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
 
 
@@ -398,20 +399,37 @@ const AdminIndex: NextPage = () => {
               <hr className="border-gray-300 border-1 mt-1 mb-2  px-4" />
             </p>
 
-            <p className="text-gray-600 mx-4 flex justify-end text-sm "> Product ID: {product.ProductID}</p>
-            <p className="text-gray-600 mx-4 flex justify-end text-sm "> Supplier: {product.supp}</p>
+            <p className="text-gray-600 mx-4 flex justify-end text-sm underline"> Product ID: {product.ProductID}</p>
+            <p className="text-gray-600 mx-4 flex justify-end text-sm underline"> Type: {product.prod_type}</p>
+            <p className="text-gray-600 mx-4 flex justify-end text-sm underline"> Supplier: {product.supp}</p>
 
-            <p className="flex justify-end text-gray-600 mx-4 text-sm mb-3 "> Date Added: {formatDate(product.date_add)}</p>
+            <p className="flex justify-end text-gray-600 mx-4 text-sm underline"> Date Added: {formatDate(product.date_add)}</p>
+            <p className="text-gray-600 mx-4 flex justify-end text-sm mb-2 underline"> Price: {formatCurrency(product.cost)}</p>
 
-            <div className="flex justify-start bg-cougar-yellow">
-            <p className="text-gray-600 mx-4 font-semibold pr-4">Stock: {product.Inv_quantity}</p>
-              <p className="text-gray-600 text-md font-semibold">Price:</p>
-              <p className="text-gray-600 mx-2 mr-4 text-lg font-bold">{formatCurrency(product.cost)}</p>
+            <p className="text-gray-600 mx-4 text-lg font-semibold pr-4 bg-cougar-yellow rounded-lg p-1 mb-2"> Stock: {product.Inv_quantity} Units</p>
+            
+
+
+
+            <p className="text-gray-600 mx-4 text-lg font-semibold pr-4 bg-cougar-yellow rounded-lg p-1 mb-2"> Sold: {product.num_sold} Units</p>
+            <p className="text-gray-600 mx-4 text-lg font-semibold pr-4 bg-cougar-yellow rounded-lg p-1 mb-2"> Yield: {formatCurrency(product.cost)} of Revenue</p>
+            <div className="text-friendly-black3 px-6 flex justify-end items-center">
+              <span className="text-sm ">View</span>
+              <Link href="/StockReports" className="text-blue-600 hover:text-blue-300 text-sm  px-1 font-semibold">
+                Stock Statistics
+              </Link>
+            </div>
+
+            <div className="text-friendly-black3 px-6 flex justify-end items-center">
+              <span className="text-sm ">View</span>
+              <Link href="/SalesReports" className="text-blue-600 hover:text-blue-300 text-sm px-1 font-semibold">
+                Sales Statistics
+              </Link>
             </div>
 
 
             <p className="text-gray-600 mx-4 mb-4"></p>
-            <div className="flex justify-between mx-4 mb-4">
+            <div className="flex justify-between mx-4 ">
             </div>
           </div>
         ))}

@@ -199,7 +199,7 @@ return (
   <h1 className="text-2xl font-semibold mb-10"></h1>
     <div className="relative overflow-x-auto shadow-xl rounded">
       <table className="w-full text-sm text-left text-gray-400">
-        <caption className="p-5 text-lg font-semibold text-left  text-white bg-cougar-dark-red">
+      <caption className="p-5 text-2xl font-semibold text-left  text-white bg-cougar-dark-red">
           Manage Users
             <div className="px-4  -py-4 absolute text-sm right-0.5">
             <button

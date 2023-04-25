@@ -165,7 +165,7 @@ return (
   <h1 className="text-2xl font-semibold mb-10"></h1>
     <div className="relative overflow-x-auto shadow-xl rounded">
       <table className="w-full text-sm text-left text-gray-400">
-        <caption className="p-5 text-lg font-semibold text-left  text-white bg-friendly-black">
+      <caption className="p-5 text-2xl font-semibold text-left  text-white bg-friendly-black3">
             System Triggers
           <span className="absolute text-sm right-5">
             ({products?.length ?? 0} {products?.length === 1 ? 'row' : 'rows'})

@@ -354,6 +354,7 @@ const CheckoutPage: NextPage = () => {
         if (!dateString) {
           return 'Unspecified Date'; 
         }
+      
     
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -362,7 +363,15 @@ const CheckoutPage: NextPage = () => {
       
         return `${year}-${month}-${day}`;
       };
-    
+
+      function formatCurrency(amount: number): string {
+        const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+        });
+        return formatter.format(amount);
+      }
       const handleCheckout = async () => {
         if (!auth.user) {
           console.error("User not authenticated");
@@ -598,7 +607,7 @@ const CheckoutPage: NextPage = () => {
 
           <div className="flex justify-between font-semibold mb-5">
             <span>Sales Tax:</span>
-            <div className="">+ ($formatCurrency({totalCost ? totalCost.toFixed(2) *  0.0625: 0}))</div>
+            <div className="">+ ({formatCurrency(totalCost ? totalCost.toFixed(2) *  0.0625: 0)})</div>
           </div>
           <hr className="my-4" />
           <div className="flex justify-between text-2xl font-bold mb-12 bg-cougar-yellow p-2 rounded-lg">

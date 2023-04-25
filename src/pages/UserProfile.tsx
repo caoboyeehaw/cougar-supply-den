@@ -268,7 +268,7 @@ const UserProfile: React.FC = () => {
                     name="userType"
                     value={selectedProduct?.userType || ''}
                     onChange={handleInputChange}
-                    className="bg-cougar-yellow rounded px-4 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500"
+                    className="bg-cougar-yellow rounded px-3 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500  mb-2"
                     readOnly
                   />
                   </div>
@@ -288,7 +288,7 @@ const UserProfile: React.FC = () => {
                       id="f_name" 
                       name="f_name" 
                       
-                      className="bg-gray-200 rounded hover:shadow-lg px-4 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
+                      className="bg-gray-200 rounded hover:shadow-lg px-3 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500  mb-2" 
                       value={selectedProduct?.f_name || ''} onChange={handleInputChange}
                     />
                   </div>
@@ -307,7 +307,7 @@ const UserProfile: React.FC = () => {
                         name="l_name" 
                         value={selectedProduct?.l_name || ''} 
                         onChange={handleInputChange} 
-                        className="bg-gray-200 rounded hover:shadow-lg px-4 py-1 border-2 focus:outline-none w-full border-transparent focus:border-blue-500" 
+                        className="bg-gray-200 rounded hover:shadow-lg px-3 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500  mb-2" 
                       />
                   </div>
 
@@ -319,12 +319,12 @@ const UserProfile: React.FC = () => {
                   </li>
                   <div className="relative flex max-w-[600px]">
                     <input
-                        placeholder="Enter Date Of Birth"
+                        placeholder="Enter dob"
                         type="date"
                         id="dob" 
                         name="dob" 
                         value={selectedProduct?.dob?.substring(0, 10) || ''} onChange={handleInputChange}
-                        className="bg-gray-200 text-gray-500 focus:text-friendly-black3 rounded hover:shadow-lg px-4 w-full py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
+                        className="bg-gray-200 text-gray-500 focus:text-friendly-black3 rounded hover:shadow-lg px-3 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500 w-full mb-2" 
                       />
                   </div>
 
@@ -341,7 +341,7 @@ const UserProfile: React.FC = () => {
                         id="phone_num" 
                         name="phone_num" 
                         value={selectedProduct?.phone_num || ''} onChange={handleInputChange} 
-                        className="bg-gray-200 rounded hover:shadow-lg px-4 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
+                        className="bg-gray-200 rounded hover:shadow-lg px-3 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500  mb-2" 
                       />
                   </div>
 
@@ -372,7 +372,7 @@ const UserProfile: React.FC = () => {
                       id="url_link" 
                       name="url_link" 
                       value={selectedProduct?.url_link || ''} onChange={handleInputChange} 
-                      className="bg-gray-200 rounded hover:shadow-lg px-4 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
+                      className="bg-gray-200 rounded hover:shadow-lg px-3 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500 mb-2" 
                     />
                   </div>
 
@@ -380,7 +380,7 @@ const UserProfile: React.FC = () => {
 
                   <li className="flex items-start">
                     <span className="mt-1 flex items-center text-sm">
-                      Email
+                      Email Address
                     </span>
                   </li>
 
@@ -391,10 +391,9 @@ const UserProfile: React.FC = () => {
                         id="email" 
                         name="email" 
                         value={selectedProduct?.email || ''} onChange={handleInputChange} 
-                        className="bg-gray-200 rounded hover:shadow-lg px-4 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
+                        className="bg-gray-200 rounded hover:shadow-lg px-3 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500 mb-2" 
                       />
                   </div>
-
 
 
                   <li className="flex items-start">
@@ -410,17 +409,17 @@ const UserProfile: React.FC = () => {
                         name="pw" 
                         value={selectedProduct?.pw || ''} 
                         onChange={handleInputChange} 
-                        className="bg-gray-200 rounded hover:shadow-lg  py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
+                        className="bg-gray-200 rounded hover:shadow-lg px-3 py-1 border-2 focus:outline-none border-transparent mb-2 focus:border-blue-500 " 
                       />
                   </div>
 
                   
                     <div className="text-right">
                     <button
-                      className="rounded bg-cougar-gold px-4 py-1 text-friendly-black3 font-semibold mt-3 hover:bg-cougar-gold-dark"
+                      className="rounded bg-cougar-gold px-4 py-1 text-friendly-black3 font-semibold mt-6 hover:bg-cougar-gold-dark"
                       onClick={handleSaveClick}
                     >
-                      Update
+                      Update Account
                     </button>
                   </div>
 

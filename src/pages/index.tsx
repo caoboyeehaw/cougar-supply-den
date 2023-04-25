@@ -19,6 +19,7 @@ import router from "next/router";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const IndexPage: NextPage = () => {
+  const [loadingStates, setLoadingStates] = useState({});
   const auth = useAuth(); 
 
   const useProductsHookProducts = () => {
@@ -102,12 +103,6 @@ const IndexPage: NextPage = () => {
         console.error('Error creating cart:', error);
         throw error.response.data;
       }
-    
-    
-      console.log("Cart created:", newCart);
-      await mutate('/api/carts', async (carts) => {
-        return [...carts, newCart];
-      }, false);
     };
 
     const deleteCart = async (cart_id) => {
@@ -310,25 +305,30 @@ const IndexPage: NextPage = () => {
   };
 
 
-  const generateCartID = (cust_id: string, Product_id: string) => {
+  const generateCartID = (cust_id, Product_id) => {
     const input = cust_id + Product_id;
     let hash = 0;
     for (let i = 0; i < input.length; i++) {
       const char = input.charCodeAt(i);
       hash = (hash << 5) - hash + char;
-      hash = hash & hash; 
+      hash = hash & hash;
     }
     return Math.abs(hash);
   };
 
+  const updateLoadingStateWithDelay = (productId, state) => {
+    setTimeout(() => {
+      setLoadingStates({ ...loadingStates, [productId]: state });
+    }, 500);
+  };
+
   const handleAddToCart = async (product: Product) => {
+    setLoadingStates({ ...loadingStates, [product.ProductID]: true });
     if (!auth.user) {
       console.error("User not authenticated");
       router.push('/LoginPage');
       return;
     }
-
-  
     console.log("Product being added to cart:", product);
   
     const existingCart = carts.find(
@@ -353,8 +353,10 @@ const IndexPage: NextPage = () => {
       };
       console.log("New cart:", newCart);
       await createCart(newCart);
+
+
     }
-  
+    updateLoadingStateWithDelay(product.ProductID, false);
     console.log("Carts after adding product:", carts);
   };
 
@@ -397,8 +399,7 @@ const IndexPage: NextPage = () => {
             <p className="divide">
               <hr className="border-gray-300 border-1 mt-1 mb-2  px-4" />
             </p>
-
-            <p className="text-gray-600 mx-4 flex justify-end text-sm "> Product ID: {product.ProductID}</p>
+            <p className="text-gray-600 mx-4 flex justify-end text-sm"> Type: {product.prod_type}</p>
             <p className="text-gray-600 mx-4 flex justify-end text-sm "> Supplier: {product.supp}</p>
 
             <p className="flex justify-end text-gray-600 mx-4 text-sm mb-3 "> Date Added: {formatDate(product.date_add)}</p>
@@ -412,8 +413,12 @@ const IndexPage: NextPage = () => {
 
             <p className="text-gray-600 mx-4 mb-4"></p>
             <div className="flex justify-between mx-4 mb-4">
-              <button className="bg-cougar-gold text-friendly-black3 px-3 py-1 rounded font-semibold hover:bg-cougar-gold-dark" onClick={(event) => handleAddToCart(product)}>
-                Add to Cart
+            <button
+                className="bg-cougar-gold text-friendly-black3 px-3 py-1 rounded font-semibold hover:bg-cougar-gold-dark"
+                onClick={(event) => handleAddToCart(product)}
+                disabled={loadingStates[product.ProductID]}
+              >
+                {loadingStates[product.ProductID] ? 'Adding to Cart...' : 'Add to Cart'}
               </button>
               <button className="bg-cougar-red text-white px-3 py-1 rounded font-semibold hover:bg-cougar-dark-red" onClick={redirectToCheckout}>
                 Buy Now

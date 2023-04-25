@@ -249,13 +249,15 @@ return (
     {isError && <div>Error loading Orders</div>}
 
     {isLoading2 && <div>Loading...</div>}
-  {isError2 && <div>Error loading Orders</div>}
+    {isError2 && <div>Error loading Orders</div>}
+
+
 
      
   <h1 className="text-2xl font-semibold mb-10"></h1>
     <div className="relative overflow-x-auto shadow-xl rounded">
       <table className="w-full text-sm text-left text-gray-400">
-        <caption className="p-5 text-lg font-semibold text-left  text-white bg-cougar-dark-red">
+        <caption className="p-5 text-2xl font-semibold text-left  text-white bg-cougar-dark-red">
           Manage Orders
             <div className="px-4  -py-4 absolute text-sm right-0.5">
             <button
@@ -287,18 +289,18 @@ return (
         </thead>
 
         <tbody>
-        {products && products.map((product: Order, index: number) => (
-          <tr key={product.cart_id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
+        {products && products.map((order: Order, index: number) => (
+          <tr key={order.cart_id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
 
-              <td className="text-friendly-black px-4 py-2">{product.cart_id}</td>
-              <td className="text-friendly-black px-4 py-2">{product.cust_id}</td>
-              <td className="text-friendly-black px-4 py-2">{product.Product_id}</td>
-              <td className="text-friendly-black px-4 py-2">{product.quantity}</td>
+              <td className="text-friendly-black px-4 py-2">{order.cart_id}</td>
+              <td className="text-friendly-black px-4 py-2">{order.cust_id}</td>
+              <td className="text-friendly-black px-4 py-2">{order.Product_id}</td>
+              <td className="text-friendly-black px-4 py-2">{order.quantity}</td>
 
               <td className="px-4 py-2">
                 <button
                   className="bg-cougar-gold text-friendly-black px-3 font-semibold py-1 rounded hover:bg-cougar-gold-dark"
-                  onClick={() => handleEditClick(product)}
+                  onClick={() => handleEditClick(order)}
                 >
                   Update
                 </button>
@@ -311,7 +313,7 @@ return (
                     
                   if (selectedProduct) {
                     //sus tostring
-                    handleDeleteClick(selectedProduct.cart_id, product);
+                    handleDeleteClick(selectedProduct.cart_id, order);
                   }
                 }}
               >

@@ -463,7 +463,7 @@ return (
         <h1 className="text-3xl font-bold mb-6">Your Order History.</h1>
           <div className="flex"> 
             <div className="grid grid-cols-1 gap-8 w-full mr-4"> 
-              {orders.map((cartItem) => {
+              {orders && orders.map((cartItem) => {
                 const product = products.find(
                 (item) => item.ProductID === cartItem.Product_id
               );
@@ -499,7 +499,7 @@ return (
           <div className="bg-white shadow-xl rounded p-8 ">
           <h2 className="text-xl font-bold mb-4">Order History Overview</h2>
           <ul>
-            {orders.map((cartItem) => {
+          {orders && orders.map((cartItem) => {
                 const product = products.find(
                   (item) => item.ProductID === cartItem.Product_id
                 );
