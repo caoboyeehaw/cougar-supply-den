@@ -249,8 +249,7 @@ const OrderHistory: NextPage = () => {
       };
     
       const groupOrdersByProduct = (orders: Order[]): Record<string, number> => {
-        if (orders.length === 0) {
-
+        if (!orders || orders.length === 0) {
           return {};
         }
       
@@ -265,7 +264,7 @@ const OrderHistory: NextPage = () => {
       };
     
       const { products, isLoading, isError, createProduct, updateProduct, deleteProduct } = useProductsHookProducts();
-      const { carts, isLoading2, isError2, updateCart, createCart, deleteCart, setCarts } = useProductsHookCarts();
+
       const { users, isLoading3, isError3, updateUser, createUser, deleteUser } = useProductsHookUsers();
       const { orders, isLoading4, isError4, updateOrder, createOrder, deleteOrder } = useProductsHookOrders();
     
@@ -289,17 +288,17 @@ const OrderHistory: NextPage = () => {
     
       if (isLoading) return <p>Loading...</p>;
       if (isError) return <p>Error loading products.</p>;
-    
-      if (isLoading2) return <p>Loading...</p>;
-      if (isError2) return <p>Error loading carts.</p>;
+
     
       if (isLoading3) return <p>Loading...</p>;
       if (isError3) return <p>Error loading users.</p>;
     
-      const totalCost = (orders || []).reduce((sum, order) => {
-        const product = products.find((item) => item.id === order.ProductId);
+
+
+      const totalCost = (orders || []).reduce((sum, cartItem) => {
+        const product = products.find((item) => item.ProductID === cartItem.Product_id);
         if (!product) return sum;
-        return sum + (product.cost * order.quantity);
+        return sum + (product.cost * cartItem.quantity);
       }, 0);
   
       
@@ -327,40 +326,7 @@ const OrderHistory: NextPage = () => {
         return Math.abs(hash);
       };
     
-      const handleAddToCart = async (product: Product) => {
-        if (!auth.user) {
-          console.error("User not authenticated");
-          return;
-        }
-      
-        console.log("Product being added to cart:", product);
-      
-        const existingCart = carts.find(
-          (cart) => cart.cust_id === auth.user.user_id && cart.Product_id === product.ProductID
-        );
-      
-        console.log("Existing cart:", existingCart);
-      
-        if (existingCart) {
-          const updatedCart: ShoppingCart = {
-            ...existingCart,
-            quantity: (existingCart.quantity ?? 0) + 1,
-          };
-          console.log("Updated cart:", updatedCart);
-          await updateCart(updatedCart);
-        } else {
-          const newCart: ShoppingCart = {
-            cart_id: generateCartID(auth.user.user_id, product.ProductID),
-            cust_id: auth.user.user_id,
-            Product_id: product.ProductID,
-            quantity: 1,
-          };
-          console.log("New cart:", newCart);
-          await createCart(newCart);
-        }
-      
-        console.log("Carts after adding product:", carts);
-      };
+
 
       const falseClickProduct = (product: Product) => {
         setSelectedProduct(product);
@@ -430,12 +396,7 @@ const OrderHistory: NextPage = () => {
       };
     
 
-      const handleDeleteClickCart = async (CartID: number, cart: ShoppingCart) => {
-        setSelectedCart(cart);
-        await deleteCart(CartID);
-        setCarts(prevCarts => prevCarts.filter(item => item.cart_id !== CartID));
-      };
-    
+
       const handleAddClickCart = () => {
         setShowAddModal(true);
       };
@@ -445,21 +406,10 @@ const OrderHistory: NextPage = () => {
       };
 
 
-      const deleteAllCartItems = async () => {
-        for (const cartItem of carts) {
-          await deleteCart(cartItem.cart_id);
-        }
-        setCarts([]);
-      };
 
-      const handlePlaceOrder = async () => {
 
-        await deleteAllCartItems();
-      };
-      const redirectToCheckout= () => {
-        handlePlaceOrder();
-        router.push('/CheckoutPage');
-      };
+
+
 
       const redirectToHome= () => {
         router.push('/');
@@ -481,12 +431,12 @@ const OrderHistory: NextPage = () => {
 
       const handleQuantityChange = async (e, product) => {
         const newQuantity = parseInt(e.target.value, 10);
-        const cartItem = carts.find((cart) => cart.Product_id === product.Product_id);
+        const cartItem = orders.find((cart) => orders.Product_id === product.Product_id);
       
         if (cartItem) {
           const previousQuantity = cartItem.quantity;
           const updatedCart = { ...cartItem, quantity: newQuantity };
-          await updateCart(updatedCart);
+          await updateOrder(updatedCart);
       
           const inventoryChange = previousQuantity - newQuantity;
           await decreaseProductQuantity(product.ProductID, inventoryChange);
@@ -535,7 +485,7 @@ const OrderHistory: NextPage = () => {
           <div className="fixed right-64 w-64 bg-white p-4 rounded-2xl shadow-lg">
             <h2 className="text-xl font-bold mb-4">Order History</h2>
             <ul>
-              {carts.map((cartItem) => {
+              {orders.map((cartItem) => {
                 const product = products.find(
                   (item) => item.ProductID === cartItem.Product_id
                 );

@@ -329,10 +329,12 @@ const CheckoutPage: NextPage = () => {
       const [showAddModal, setShowAddModal] = useState(false);
       const [showModal, setShowModal] = useState(false);
 
-      const totalCost = (order || []).reduce((sum, order) => {
-        const product = products.find((item) => item.id === order.ProductId);
+
+
+      const totalCost = (carts || []).reduce((sum, cartItem) => {
+        const product = products.find((item) => item.ProductID === cartItem.Product_id);
         if (!product) return sum;
-        return sum + (product.cost * order.quantity);
+        return sum + (product.cost * cartItem.quantity);
       }, 0);
     
     
@@ -361,75 +363,38 @@ const CheckoutPage: NextPage = () => {
         return `${year}-${month}-${day}`;
       };
     
-      const generateCartID = (cust_id: string, Product_id: string) => {
-        const input = cust_id + Product_id;
-        let hash = 0;
-        for (let i = 0; i < input.length; i++) {
-          const char = input.charCodeAt(i);
-          hash = (hash << 5) - hash + char;
-          hash = hash & hash; 
-        }
-        return Math.abs(hash);
-      };
-    
-      const handleCheckout = async (product: Product) => {
+      const handleCheckout = async () => {
         if (!auth.user) {
           console.error("User not authenticated");
           return;
         }
       
-        console.log("Product being added to cart:", product);
+        for (const cartItem of carts) {
+          const product = products.find(
+            (item) => item.ProductID === cartItem.Product_id
+          );
       
-        const existingCart = carts.find(
-          (cart) => cart.cust_id === auth.user.user_id && cart.Product_id === product.ProductID
-        );
-      
-        console.log("Existing cart:", existingCart);
-      
-        
-        createOrder(newCart);
-        await deleteCart(newCart.cart_id)
-
-        console.log("order after adding product:", order);
-
-        router.push('/');
-        
-      };
-
-      const handleAddToCart = async (product: Product) => {
-        if (!auth.user) {
-          console.error("User not authenticated");
-          return;
-        }
-      
-        console.log("Product being added to cart:", product);
-      
-        const existingCart = carts.find(
-          (cart) => cart.cust_id === auth.user.user_id && cart.Product_id === product.ProductID
-        );
-      
-        console.log("Existing cart:", existingCart);
-      
-        if (existingCart) {
-          const updatedCart: Order = {
-            ...existingCart,
-            quantity: (existingCart.quantity ?? 0) + 1,
-          };
-          console.log("Updated cart:", updatedCart);
-          await updateCart(updatedCart);
-        } else {
-          const newCart: Order = {
-            cart_id: generateCartID(auth.user.user_id, product.ProductID),
-            cust_id: auth.user.user_id,
+          if (!product) continue;
+            
+          //check this logic here
+          const newOrder: Order = {
+            cart_id: cartItem.cart_id,
+            cust_id: cartItem.cust_id,
             Product_id: product.ProductID,
-            quantity: 1,
+            quantity: cartItem.quantity,
           };
-          console.log("New cart:", newCart);
-          await createCart(newCart);
+      
+          console.log("New order:", newOrder);
+      
+          await createOrder(newOrder);
+          await deleteCart(cartItem.cart_id);
         }
       
-        console.log("Carts after adding product:", carts);
+        console.log("Orders after adding products:", order);
+      
+        router.push('/');
       };
+
 
       const falseClickProduct = (product: Product) => {
         setSelectedProduct(product);
@@ -550,13 +515,11 @@ const CheckoutPage: NextPage = () => {
         } else {
           console.error('No matching cart item found for the selected product');
         }
-      };
-
-      
+      };   
       
       return (
         <div className="relative container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-6">Your Shopping Cart.</h1>
+          <h1 className="text-3xl font-bold mb-6">Your Order Confirmation.</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
 
             {carts.map((cartItem) => {
@@ -582,19 +545,6 @@ const CheckoutPage: NextPage = () => {
                   <p className="text-gray-600 mx-4">Supplier: {product.supp}</p>
                   <p className="text-gray-600 mx-4 mb-4"></p>
                   <div className="flex justify-between mx-4 mb-4">
-                    <button
-                      className="bg-cougar-red text-white px-3 rounded font-semibold hover:bg-cougar-dark-red"
-                      onClick={() => {
-                        handleDeleteClickCart(cartItem.cart_id, product);
-                      }}
-                    >
-                      Remove
-                    </button>
-                    <div className="quantity-select bg-cougar-gold font-semibold text-friendly-black3 pl-3 pr-2 py-1 rounded hover:bg-cougar-gold-dark">
-                      <button onClick={(event) => handleAddToCart(product)}>
-                        <label htmlFor="quantity" className="mr-2">QTY: {quantity}</label>
-                      </button>
-                    </div>
                   </div>
                 </div>
               );
@@ -651,12 +601,14 @@ const CheckoutPage: NextPage = () => {
       
                 Back
               </button >
-              <button
-                className="bg-cougar-teal text-white px-3 py-1 rounded ml-5 font-semibold"
-                onClick={() => handleCheckout(products)}
+
+              <button 
+              className="bg-cougar-teal text-white px-3 py-1 rounded ml-5 font-semibold" 
+              onClick={handleCheckout}
               >
                 Confirm Order
               </button>
+
           </div>
 
     </div>

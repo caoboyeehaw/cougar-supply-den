@@ -233,10 +233,10 @@ const ShoppingCart: NextPage = () => {
       if (isLoading3) return <p>Loading...</p>;
       if (isError3) return <p>Error loading users.</p>;
 
-      const totalCost = (carts || []).reduce((sum, carts) => {
-        const product = products.find((item) => item.id === carts.ProductId);
+      const totalCost = (carts || []).reduce((sum, cartItem) => {
+        const product = products.find((item) => item.ProductID === cartItem.Product_id);
         if (!product) return sum;
-        return sum + (product.cost * carts.quantity);
+        return sum + (product.cost * cartItem.quantity);
       }, 0);
     
 
@@ -464,7 +464,9 @@ const ShoppingCart: NextPage = () => {
                   <p className="text-gray-600 mx-4">Price: ${product.cost}</p>
                   <p className="text-gray-600 mx-4">Supplier: {product.supp}</p>
                   <p className="text-gray-600 mx-4 mb-4"></p>
+                  
                   <div className="flex justify-between mx-4 mb-4">
+                    
                     <button
                       className="bg-cougar-red text-white px-3 rounded font-semibold hover:bg-cougar-dark-red"
                       onClick={() => {
@@ -473,6 +475,7 @@ const ShoppingCart: NextPage = () => {
                     >
                       Remove
                     </button>
+                    
                     <div className="quantity-select bg-cougar-gold font-semibold text-friendly-black3 pl-3 pr-2 py-1 rounded hover:bg-cougar-gold-dark">
                       <button onClick={(event) => handleAddToCart(product)}>
                         <label htmlFor="quantity" className="mr-2">QTY: {quantity}</label>
