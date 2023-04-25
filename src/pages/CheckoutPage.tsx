@@ -539,15 +539,15 @@ const handleCheckout = async () => {
           </div>
 
           <div className="flex justify-between font-semibold mb-5">
-            <span>Sales Tax:</span>
-            <div className="">+ ({formatCurrency(totalCost ? totalCost.toFixed(2) *  0.0625: 0)})</div>
+            <span>Sales Tax (6.25%):</span>
+            <div className="">+({formatCurrency(totalCost ? totalCost.toFixed(2) *  0.0625: 0)})</div>
           </div>
           <hr className="my-4" />
           <div className="flex justify-between text-2xl font-bold mb-12 bg-cougar-yellow p-2 rounded-lg">
 
 
             <span>Total Order Cost:</span>
-            <div className="">${totalCost ? totalCost.toFixed(2) : 0}</div>
+            <div className="">${(totalCost ? totalCost + totalCost *  0.0625 : 0).toFixed(2)}</div>
 
           </div>
 

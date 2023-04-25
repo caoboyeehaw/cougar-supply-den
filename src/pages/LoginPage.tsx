@@ -179,7 +179,12 @@ const redirectToHomePageValidUser = async () => {
         
       );
       setUser(authenticatedUser);
-      router.push("/");
+
+      if (authenticatedUser && authenticatedUser.userType === 'Admin'){
+        router.push("/AdminIndex");
+      } else {
+        router.push("/");
+      }
     }
   }
 };
