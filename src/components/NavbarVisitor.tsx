@@ -75,8 +75,8 @@ const VisitorNavbar = (props: Props) => {
       {/*Contact*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
-            Store View
+            <Link href="/" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 py-5 px-6">
+            Store Page
             </Link>
           </div>
         </div>
@@ -115,7 +115,7 @@ const VisitorNavbar = (props: Props) => {
       {/*Home*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/ProjectInformation" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
+            <Link href="/ProjectInformation" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 py-5 px-6">
             About
             </Link>
           </div>
@@ -124,7 +124,7 @@ const VisitorNavbar = (props: Props) => {
       {/*Source*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/WebsiteRepository" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
+            <Link href="/WebsiteRepository" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 py-5 px-6">
             Source
             </Link>
           </div>
@@ -133,7 +133,7 @@ const VisitorNavbar = (props: Props) => {
       {/*Contact*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/GroupMemberList" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
+            <Link href="/GroupMemberList" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 pl-5 pr-7 px-6">
             Members
             </Link>
           </div>

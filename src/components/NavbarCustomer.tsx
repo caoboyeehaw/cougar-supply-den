@@ -121,7 +121,7 @@ auth.setUser(null);
         {/*Store View*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
+            <Link href="/" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 py-5 px-6">
             Store View
             </Link>
           </div>
@@ -130,7 +130,7 @@ auth.setUser(null);
         {/*Shopping Cart*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/ShoppingCart" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
+            <Link href="/ShoppingCart" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 py-5 px-6">
             Shopping Cart
             </Link>
           </div>
@@ -139,7 +139,7 @@ auth.setUser(null);
         {/*Shopping Cart*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/OrderHistory" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
+            <Link href="/OrderHistory" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 pl-5 pr-7 px-6">
             Order History
             </Link>
           </div>

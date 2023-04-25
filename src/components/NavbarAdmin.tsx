@@ -159,7 +159,7 @@ const AdminNavbar = (props: Props) => {
         {/*notifications*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/AdminIndex" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
+            <Link href="/AdminIndex" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 py-5 px-6">
             Store View
             </Link>
           </div>
@@ -168,7 +168,7 @@ const AdminNavbar = (props: Props) => {
         {/*notifications*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/Notifcations" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
+            <Link href="/Notifcations" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 pl-5 pr-7 px-6">
             Triggers
             </Link>
           </div>
