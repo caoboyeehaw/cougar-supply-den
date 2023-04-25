@@ -412,7 +412,7 @@ const AdminIndex: NextPage = () => {
 
 
             <p className="text-gray-600 mx-4 text-lg font-semibold pr-4 bg-cougar-yellow rounded-lg p-1 mb-2"> Sold: {product.num_sold} Units</p>
-            <p className="text-gray-600 mx-4 text-lg font-semibold pr-4 bg-cougar-yellow rounded-lg p-1 mb-2"> Yield: {formatCurrency(product.cost)} of Revenue</p>
+            <p className="text-gray-600 mx-4 text-lg font-semibold pr-4 bg-cougar-yellow rounded-lg p-1 mb-2"> Yield: {formatCurrency(product.cost * product.num_sold)} of Revenue</p>
             <div className="text-friendly-black3 px-6 flex justify-end items-center">
               <span className="text-sm ">View</span>
               <Link href="/StockReports" className="text-blue-600 hover:text-blue-300 text-sm  px-1 font-semibold">

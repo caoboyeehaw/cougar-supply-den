@@ -50,7 +50,7 @@ const AdminNavbar = (props: Props) => {
   };
 
   const navigateToHomePage = () => {
-    router.push("/");
+    router.push("/AdminIndex");
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
