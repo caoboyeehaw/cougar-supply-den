@@ -200,7 +200,7 @@ const ShoppingCart: NextPage = () => {
       };
     
     
-    
+      
     
       const { products, isLoading, isError, createProduct, updateProduct, deleteProduct } = useProductsHookProducts();
       const { carts, isLoading2, isError2, updateCart, createCart, deleteCart, setCarts } = useProductsHookCarts();
