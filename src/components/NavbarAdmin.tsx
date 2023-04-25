@@ -43,6 +43,7 @@ const AdminNavbar = (props: Props) => {
 
   const handleLogout = () => {
     auth.setUser(null);
+    router.push("/");
     
     // Implement your logout logic here
     console.log("Logging out...");

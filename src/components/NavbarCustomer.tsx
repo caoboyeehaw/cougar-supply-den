@@ -39,6 +39,7 @@ if (isLoginPage || isSignupPage) {
 
 const handleLogout = () => {
 auth.setUser(null);
+router.push("/");
     
 // Implement your logout logic here
     console.log("Logging out...");
@@ -139,7 +140,7 @@ auth.setUser(null);
         {/*Shopping Cart*/}
         <div className="flex-col">
           <div className="flex flex-col">
-            <Link href="/OrderHistory" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 pl-5 pr-7 px-6">
+            <Link href="/OrderHistory" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 pl-5 pr-7 py-5 px-6">
             Order History
             </Link>
           </div>
