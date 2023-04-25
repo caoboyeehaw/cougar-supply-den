@@ -484,10 +484,10 @@ return (
                   <div className="flex flex-col justify-between ml-4 mb-2">
                     <div>
                       <h2 className="mt-2 text-xl font-bold">{product.p_name}</h2>
-                      <p className="text-gray-600">Price: ${product.cost}</p>
+                      <p className="text-gray-600">Price: ${(product.cost).toFixed(2)}</p>
                       <p className="text-gray-600">Supplier: {product.supp}</p>
                       <p className="text-gray-600">Quantity: {quantity}</p>
-                      <p className="text-gray-600">Expense: ${quantity * product.cost}</p>
+                      <p className="text-gray-600">Expense: ${(quantity * product.cost).toFixed(2)}</p>
                     </div>
             
                   </div>
@@ -521,7 +521,7 @@ return (
           </ul>
           <hr className="my-4" />
           <div className="flex justify-between font-semibold mb-5">
-            <span>Item(s) Cost:</span>
+            <span>Cost:</span>
             <div className="">${totalCost ? totalCost.toFixed(2) : 0}</div>
           </div>
 

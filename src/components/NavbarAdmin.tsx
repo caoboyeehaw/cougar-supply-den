@@ -100,7 +100,7 @@ const AdminNavbar = (props: Props) => {
           {/* Replace with the 'your-image-url' with the actual image URL */}
           <Image
           className="max-w-[135px] max-h-[36px] -mt-4"
-          src="https://i.postimg.cc/8CmrGW8J/cougar-supply-den-full-logo-alpha.png"
+          src="https://i.postimg.cc/pXmmx2DK/cougar-supply-den-full-logo-alpha2.png"
           alt=""
           width={135}
           height={36}

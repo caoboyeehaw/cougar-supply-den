@@ -484,7 +484,7 @@ const handleCheckout = async () => {
                   layout="fixed"
                 />
                 <h2 className="mt-2 text-xl font-bold  mx-4">{product.p_name}</h2>
-                <p className="text-gray-600 mx-4">Price: ${product.cost}</p>
+                <p className="text-gray-600 mx-4">Price: ${(product.cost).toFixed(2)}</p>
                 <p className="text-gray-600 mx-4">Supplier: {product.supp}</p>
                 <p className="text-gray-600 mx-4 mb-4"></p>
                 <div className="flex justify-between mx-4 mb-4">
@@ -498,7 +498,7 @@ const handleCheckout = async () => {
                 <div className="flex justify-between mx-4 mb-4">
 
                   <div className="flex justify-between items-center w-full">
-                    <label htmlFor="cost" className="rounded font-semibold bg-cougar-gold text-lg px-2" >Cost: ${quantity * product.cost}</label>
+                    <label htmlFor="cost" className="rounded font-semibold bg-cougar-gold text-lg px-2" >Cost: ${(quantity * product.cost).toFixed(2)}</label>
                   </div>
                   
                 </div>
