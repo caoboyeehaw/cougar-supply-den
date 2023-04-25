@@ -160,7 +160,7 @@ const AdminNavbar = (props: Props) => {
         <div className="flex-col">
           <div className="flex flex-col">
             <Link href="/" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
-            Store Overview
+            Store View
             </Link>
           </div>
         </div>
@@ -169,7 +169,7 @@ const AdminNavbar = (props: Props) => {
         <div className="flex-col">
           <div className="flex flex-col">
             <Link href="/Notifcations" className="text-cougar-yellow font-bold text-md hover:bg-cougar-dark-red2 py-5 px-6">
-            Notifcations
+            Triggers
             </Link>
           </div>
         </div>

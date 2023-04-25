@@ -529,7 +529,7 @@ const ShoppingCart: NextPage = () => {
                       <button className="font-bold px-2.5 text-friendly-black3 bg-cougar-gold hover:bg-cougar-gold-dark rounded-l p-1" onClick={() => handleDecreaseQuantity(product)}>
                         -
                       </button>
-                      <label htmlFor="quantity" className="mx-2 ">QTY: {quantity}</label>
+                      <label htmlFor="quantity" className="mx-3 ">QTY: {quantity}</label>
                       <button className="font-bold px-2 text-friendly-black3 bg-cougar-gold hover:bg-cougar-gold-dark rounded-r p-1" onClick={(event) => handleAddToCart(product)}>
                         +
                       </button>
@@ -590,7 +590,7 @@ const ShoppingCart: NextPage = () => {
                 onClick={redirectToHome}
                 >
       
-                Back
+                Go Back to Shop
               </button >
           </div>
 

@@ -33,8 +33,8 @@ module.exports = {
           'cougar-gold': '#f1a943',
           'cougar-gold-dark':'#D5963D',
           'cougar-dark-red3':'#700919',
-          'cougar-teal':'#05b48c',
-          'cougar-dark-teal':'#1ca277',
+          'cougar-teal':'#0fab88',
+          'cougar-dark-teal':'#16977a',
         },
 
       },

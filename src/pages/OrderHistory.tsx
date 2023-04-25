@@ -314,6 +314,15 @@ const OrderHistory: NextPage = () => {
       
         return `${year}-${month}-${day}`;
       };
+
+      function formatCurrency(amount: number): string {
+        const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+        });
+        return formatter.format(amount);
+      }
     
       const generateCartID = (cust_id: string, Product_id: string) => {
         const input = cust_id + Product_id;
@@ -447,77 +456,103 @@ const OrderHistory: NextPage = () => {
 
       const groupedOrders = groupOrdersByProduct(orders);
       
-      return (
-        <div className="relative container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-6">Your Order History.</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
+return (
+  <>
+    <div className="min-h-screen py-6 flex flex-col items-center">
+      <div className="w-full max-w-4xl">
+        <h1 className="text-3xl font-bold mb-6">Your Order History.</h1>
+          <div className="flex"> 
+            <div className="grid grid-cols-1 gap-8 w-full mr-4"> 
+              {orders.map((cartItem) => {
+                const product = products.find(
+                (item) => item.ProductID === cartItem.Product_id
+              );
+              const quantity = cartItem ? cartItem.quantity : 0;
 
-          {orders.map((orderItem) => {
-              const product = products.find((item) => item.id === orderItem.productId);
-              const quantity = orderItem ? orderItem.quantity : 0;
-      
               if (!product) return null;
-      
               return (
-                <div key={orderItem.order_id} className="bg-white p-0 rounded outline-hover-white shadow-lg hover:shadow-2xl">
+                <div key={cartItem.cart_id} className="bg-white p-0 rounded outline-hover-white shadow-lg hover:shadow-2xl flex">
                   <Image
                     src={`${product.url_link}`}
                     alt={product.Product_id}
-                    width={300}
-                    height={200}
-                    className="rounded-t"
+                    width={100}
+                    height={100}
+                    className="rounded-l"
                     layout="fixed"
                   />
-                  <h2 className="mt-2 text-xl font-bold mx-4">{product.p_name}</h2>
-                  <p className="text-gray-600 mx-4">Price: ${product.cost}</p>
-                  <p className="text-gray-600 mx-4">Supplier: {product.supp}</p>
-                  <p className="text-gray-600 mx-4 mb-4"></p>
-                  <div className="flex justify-between mx-4 mb-4">
-
+              
+                  <div className="flex flex-col justify-between ml-4 mb-2">
+                    <div>
+                      <h2 className="mt-2 text-xl font-bold">{product.p_name}</h2>
+                      <p className="text-gray-600">Price: ${product.cost}</p>
+                      <p className="text-gray-600">Supplier: {product.supp}</p>
+                      <p className="text-gray-600">Quantity: {quantity}</p>
+                      <p className="text-gray-600">Expense: ${quantity * product.cost}</p>
+                    </div>
+            
                   </div>
                 </div>
               );
             })}
 
-
-            
           </div>
-          <div className="fixed right-64 w-64 bg-white p-4 rounded-2xl shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Order History</h2>
-            <ul>
-              {orders.map((cartItem) => {
+          <div className="bg-white shadow-xl rounded p-8 ">
+          <h2 className="text-xl font-bold mb-4">Order History Overview</h2>
+          <ul>
+            {orders.map((cartItem) => {
                 const product = products.find(
                   (item) => item.ProductID === cartItem.Product_id
                 );
                 const quantity = cartItem ? cartItem.quantity : 0;
-      
+                
+                console.log('cartItem:', cartItem);
+                console.log('product:', product);
+                console.log('quantity:', quantity);
+                
                 if (!product) return null;
-      
+
+
                 return (
-                  <li key={cartItem.cart_id} className="mb-2">
+                  <li key={cartItem.cart_id} className="mb-2 text-sm">
                     {product.p_name}: {quantity} x ${product.cost}
                   </li>
                 );
               })}
-            </ul>
-            <hr className="my-4" />
-            <div className="flex justify-between font-bold mb-5">
-              <span>Total Purchases:</span>
-              <div className="">
-                
-              ${(totalCost ? totalCost.toFixed(2) : 0)}
-            </div>
-              
-            </div >
-      
+          </ul>
+          <hr className="my-4" />
+          <div className="flex justify-between font-semibold mb-5">
+            <span>Item(s) Cost:</span>
+            <div className="">${totalCost ? totalCost.toFixed(2) : 0}</div>
+          </div>
+
+          <div className="flex justify-between font-semibold mb-5">
+            <span>Sales Tax:</span>
+            <div className="">+ ({formatCurrency(totalCost ? totalCost.toFixed(2) *  0.0625: 0)})</div>
+          </div>
+          <hr className="my-4" />
+
+          <div className="flex justify-between text-2xl font-bold mb-12 bg-cougar-yellow rounded-lg">
+
+          <div className="">${totalCost ? totalCost.toFixed(2) : 0}</div>
 
           </div>
 
-    </div>
-  );
-};
 
+
+          <div className="flex justify-between">
+
+          </div>
+      </div>
+        </div>
+        </div>
+      </div>
+
+
+    </>
+  );
+}
 
 export default OrderHistory;
+
 
 

@@ -166,12 +166,12 @@ return (
     <div className="relative overflow-x-auto shadow-xl rounded">
       <table className="w-full text-sm text-left text-gray-400">
         <caption className="p-5 text-lg font-semibold text-left  text-white bg-friendly-black">
-            System Notifcations
+            System Triggers
           <span className="absolute text-sm right-5">
             ({products?.length ?? 0} {products?.length === 1 ? 'row' : 'rows'})
           </span>
           <div className="mt-1 text-sm font-normal text-white">
-            List of System Notifications with their Message ID, Product ID, Message Text, Time Steamp, and Local Accounts.
+            List of System Triggers with their Message ID, Product ID, Message Text, Time Steamp, and Account Visibilities.
           </div>
         </caption>
         
