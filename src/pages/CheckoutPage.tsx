@@ -319,53 +319,49 @@ const CheckoutPage: NextPage = () => {
         return formatter.format(amount);
       }
 
-const handleCheckout = async () => {
-  if (!auth.user) {
-    console.error("User not authenticated");
-    return;
-  }
-
-  for (const cartItem of carts) {
-    const product = products.find(
-      (item) => item.ProductID === cartItem.Product_id
-    );
-
-    if (!product) continue;
-
-    // Update product quantity and number sold
-    const updatedProductSold = {
-      ...product,
-      num_sold: product.num_sold + cartItem.quantity,
-    };
-
-    await updateProduct(updatedProductSold);
-
-    const updatedProductQuantity = {
-      ...product,
-      Inv_quantity: product.Inv_quantity - cartItem.quantity,
-    };
-
-    await updateProduct(updatedProductQuantity);
-
-
-    // Check this logic here
-    const newOrder: Order = {
-      cart_id: cartItem.cart_id,
-      cust_id: cartItem.cust_id,
-      Product_id: product.ProductID,
-      quantity: cartItem.quantity,
-    };
-
-    console.log("New order:", newOrder);
-
-    await createOrder(newOrder);
-    await deleteCart(cartItem.cart_id);
-  }
-
-  console.log("Orders after adding products:", order);
-
-  router.push('/');
-};
+      const handleCheckout = async () => {
+        if (!auth.user) {
+          console.error("User not authenticated");
+          return;
+        }
+      
+        for (const cartItem of carts) {
+          const product = products.find(
+            (item) => item.ProductID === cartItem.Product_id
+          );
+      
+          if (!product) continue;
+      
+          // Update product quantity and number sold
+          const updatedProduct = {
+            ...product,
+            num_sold: product.num_sold + cartItem.quantity,
+            Inv_quantity: product.Inv_quantity - cartItem.quantity,
+          };
+      
+          console.log("Num Sold:", product.num_sold);
+          console.log("Quantity:", product.Inv_quantity);
+      
+          await updateProduct(updatedProduct);
+      
+          // Check this logic here
+          const newOrder: Order = {
+            cart_id: cartItem.cart_id,
+            cust_id: cartItem.cust_id,
+            Product_id: product.ProductID,
+            quantity: cartItem.quantity,
+          };
+      
+          console.log("New order:", newOrder);
+      
+          await createOrder(newOrder);
+          await deleteCart(cartItem.cart_id);
+        }
+      
+        console.log("Orders after adding products:", order);
+      
+        router.push('/');
+      };
 
 
       const falseClickProduct = (product: Product) => {
