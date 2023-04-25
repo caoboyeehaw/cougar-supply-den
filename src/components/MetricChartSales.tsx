@@ -52,7 +52,7 @@ const PerformanceMetricChart: React.FC<MetricChartSales> = ({
     <ResponsiveContainer width={800} height={400}>
       <BarChart data={updatedChartData}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="prod_type" />
+        <XAxis dataKey="p_name" />
         <YAxis domain={[0, maxInventory]} />
         <Tooltip />
         <Legend />
