@@ -101,7 +101,7 @@ return (
           <Link key={index} href={item.href}>
           <li
             className={classNames({
-              "text-friendly-black hover:bg-hover-white hover:bg-opacity-30 hover:shadow-xl": true,
+              "text-friendly-black hover:bg-friendly-black3 hover:text-white hover:shadow-xl": true,
               "flex gap-4 items-center ": true,
               "transition-colors duration-100": true,
               "rounded-md p-2 mx-2 ": true,
@@ -121,7 +121,7 @@ return (
           <Link key={index} href={item.href}>
           <li
             className={classNames({
-              "text-friendly-black hover:bg-hover-white hover:bg-opacity-30 hover:shadow-xl": true,
+              "text-friendly-black hover:bg-friendly-black3 hover:text-white hover:shadow-xl": true,
               "flex gap-4 items-center ": true,
               "transition-colors duration-100": true,
               "rounded-md p-2 mx-2 ": true,
@@ -141,7 +141,7 @@ return (
           <Link key={index} href={item.href}>
           <li
             className={classNames({
-              "text-friendly-black hover:bg-hover-white hover:bg-opacity-30 hover:shadow-xl": true,
+              "text-friendly-black hover:bg-friendly-black3 hover:text-white hover:shadow-xl": true,
               "flex gap-4 items-center ": true,
               "transition-colors duration-100": true,
               "rounded-md p-2 mx-2 ": true,
