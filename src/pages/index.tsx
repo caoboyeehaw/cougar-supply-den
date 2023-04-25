@@ -360,6 +360,55 @@ const IndexPage: NextPage = () => {
     console.log("Carts after adding product:", carts);
   };
 
+  const redirectToCheckout = async (product: Product) => {
+    if (!auth.user) {
+      console.error("User not authenticated");
+      router.push('/LoginPage');
+      return;
+    }
+
+
+
+    setLoadingStates({ ...loadingStates, [product.ProductID]: true });
+    if (!auth.user) {
+      console.error("User not authenticated");
+      router.push('/LoginPage');
+      return;
+    }
+    console.log("Product being added to cart:", product);
+  
+    const existingCart = carts.find(
+      (cart) => cart.cust_id === auth.user.user_id && cart.Product_id === product.ProductID
+    );
+  
+    console.log("Existing cart:", existingCart);
+  
+    if (existingCart) {
+      const updatedCart: ShoppingCart = {
+        ...existingCart,
+        quantity: (existingCart.quantity ?? 0) + 1,
+      };
+      console.log("Updated cart:", updatedCart);
+      await updateCart(updatedCart);
+    } else {
+      const newCart: ShoppingCart = {
+        cart_id: generateCartID(auth.user.user_id, product.ProductID),
+        cust_id: auth.user.user_id,
+        Product_id: product.ProductID,
+        quantity: 1,
+      };
+      console.log("New cart:", newCart);
+      await createCart(newCart);
+
+
+    }
+    updateLoadingStateWithDelay(product.ProductID, false);
+    console.log("Carts after adding product:", carts);
+
+
+    router.push('/CheckoutPage');
+  };
+
   function formatCurrency(amount: number): string {
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -369,14 +418,7 @@ const IndexPage: NextPage = () => {
     return formatter.format(amount);
   }
 
-  const redirectToCheckout= () => {
-    if (!auth.user) {
-      console.error("User not authenticated");
-      router.push('/LoginPage');
-      return;
-    }
-    router.push('/CheckoutPage');
-  };
+
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -420,7 +462,7 @@ const IndexPage: NextPage = () => {
               >
                 {loadingStates[product.ProductID] ? 'Adding to Cart...' : 'Add to Cart'}
               </button>
-              <button className="bg-cougar-red text-white px-3 py-1 rounded font-semibold hover:bg-cougar-dark-red" onClick={redirectToCheckout}>
+              <button className="bg-cougar-red text-white px-3 py-1 rounded font-semibold hover:bg-cougar-dark-red" onClick={(event) => redirectToCheckout(product)}>
                 Buy Now
               </button>
             </div>

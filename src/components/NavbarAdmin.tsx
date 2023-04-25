@@ -161,7 +161,7 @@ const AdminNavbar = (props: Props) => {
         <div className="flex-col">
           <div className="flex flex-col">
             <Link href="/AdminIndex" className="text-cougar-yellow font-semibold text-md hover:bg-cougar-dark-red2 py-5 px-6">
-            Store View
+            Store Overview
             </Link>
           </div>
         </div>

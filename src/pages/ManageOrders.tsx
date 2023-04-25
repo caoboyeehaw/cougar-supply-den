@@ -271,7 +271,7 @@ return (
             ({products?.length ?? 0} {products?.length === 1 ? 'row' : 'rows'})
           </span>
           <div className="mt-1 text-sm font-normal text-white">
-            List of Orders with their Cart ID, Customer ID, Product ID, Quantity.
+            List of Orders with their Order ID, Customer ID, Product ID, Quantity.
           </div>
         </caption>
         
