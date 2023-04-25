@@ -39,7 +39,7 @@ const ShoppingCart: NextPage = () => {
   const isError = error;
 
 
-  
+        
     
         const updateProduct = async (selectedProduct: Product) => {
           try {
@@ -252,6 +252,15 @@ const ShoppingCart: NextPage = () => {
       
         return `${year}-${month}-${day}`;
       };
+
+      function formatCurrency(amount: number): string {
+        const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+        });
+        return formatter.format(amount);
+      }
     
       const generateCartID = (cust_id: string, Product_id: string) => {
         const input = cust_id + Product_id;
@@ -276,6 +285,38 @@ const ShoppingCart: NextPage = () => {
         await deleteAllCartItems();
       };
 
+      const handleDecreaseQuantity = async (product: Product) => {
+        if (!auth.user) {
+          console.error("User not authenticated");
+          return;
+        }
+      
+        console.log("Product being removed from cart:", product);
+      
+        const existingCart = carts.find(
+          (cart) => cart.cust_id === auth.user.user_id && cart.Product_id === product.ProductID
+        );
+      
+        console.log("Existing cart:", existingCart);
+      
+        if (existingCart) {
+          if (existingCart.quantity > 1) {
+            const updatedCart: ShoppingCart = {
+              ...existingCart,
+              quantity: existingCart.quantity - 1,
+            };
+            console.log("Updated cart:", updatedCart);
+            await updateCart(updatedCart);
+          } else {
+            console.log("Removing cart item:", existingCart);
+            await deleteCart(existingCart.cart_id);
+          }
+        } else {
+          console.error("No cart item found to decrease quantity");
+        }
+      
+        console.log("Carts after removing product:", carts);
+      };
 
 
 
@@ -314,6 +355,8 @@ const ShoppingCart: NextPage = () => {
       
         console.log("Carts after adding product:", carts);
       };
+
+      
 
       const falseClickProduct = (product: Product) => {
         setSelectedProduct(product);
@@ -451,39 +494,50 @@ const ShoppingCart: NextPage = () => {
             if (!product) return null;
 
             return (
-                <div key={cartItem.cart_id} className="bg-white p-0 rounded outline-hover-white shadow-lg hover:shadow-2xl">
-                  <Image
-                    src={`${product.url_link}`}
-                    alt={product.Product_id}
-                    width={300}
-                    height={200}
-                    className="rounded-t"
-                    layout="fixed"
-                  />
-                  <h2 className="mt-2 text-xl font-bold mx-4">{product.p_name}</h2>
-                  <p className="text-gray-600 mx-4">Price: ${product.cost}</p>
-                  <p className="text-gray-600 mx-4">Supplier: {product.supp}</p>
-                  <p className="text-gray-600 mx-4 mb-4"></p>
-                  
-                  <div className="flex justify-between mx-4 mb-4">
-                    
-                    <button
-                      className="bg-cougar-red text-white px-3 rounded font-semibold hover:bg-cougar-dark-red"
-                      onClick={() => {
-                        handleDeleteClickCart(cartItem.cart_id, product);
-                      }}
-                    >
-                      Remove
-                    </button>
-                    
-                    <div className="quantity-select bg-cougar-gold font-semibold text-friendly-black3 pl-3 pr-2 py-1 rounded hover:bg-cougar-gold-dark">
-                      <button onClick={(event) => handleAddToCart(product)}>
-                        <label htmlFor="quantity" className="mr-2">QTY: {quantity}</label>
+              <div key={cartItem.cart_id} className="bg-white p-0 rounded outline-hover-white shadow-lg hover:shadow-2xl">
+                <Image
+                  src={`${product.url_link}`}
+                  alt={product.Product_id}
+                  width={300}
+                  height={200}
+                  className="rounded-t"
+                  layout="fixed"
+                />
+                <h2 className=" mt-2 text-xl font-bold mx-4">{product.p_name}</h2>
+                <p className="divide">
+                  <hr className="border-gray-300 border-1 mt-1 mb-1  px-4" />
+                </p>
+
+                <p className="text-gray-600 mx-4 mb-1 flex justify-start">Supplier: {product.supp}</p>
+                <div className="flex justify-end bg-cougar-yellow">
+
+              <p className="text-gray-600 text-md font-semibold">Price:</p>
+              <p className="text-gray-600 mx-2 mr-4  text-lg font-bold">{formatCurrency(product.cost)}</p>
+            </div>
+                <p className="text-gray-600 mx-4 mb-4"></p>
+                <div className="flex justify-between mx-4 mb-4">
+                  <button
+                    className="bg-cougar-red text-white px-3 rounded font-semibold hover:bg-cougar-dark-red"
+                    onClick={() => {
+                      handleDeleteClickCart(cartItem.cart_id, product);
+                    }}
+                  >
+                    Remove
+                  </button>
+                  <div className="quantity-select  font-semibold text-white rounded bg-friendly-black3 ">
+                    <div className="flex items-center">
+                      <button className="font-bold px-2.5 text-friendly-black3 bg-cougar-gold hover:bg-cougar-gold-dark rounded-l p-1" onClick={() => handleDecreaseQuantity(product)}>
+                        -
+                      </button>
+                      <label htmlFor="quantity" className="mx-2 ">QTY: {quantity}</label>
+                      <button className="font-bold px-2 text-friendly-black3 bg-cougar-gold hover:bg-cougar-gold-dark rounded-r p-1" onClick={(event) => handleAddToCart(product)}>
+                        +
                       </button>
                     </div>
                   </div>
                 </div>
-              );
+              </div>
+            );
             })}
 
 

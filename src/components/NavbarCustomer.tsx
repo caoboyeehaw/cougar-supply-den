@@ -171,7 +171,7 @@ auth.setUser(null);
       </div>
 
       <button onClick={handleLogout} className="flex items-center bg-cougar-gold hover:bg-cougar-gold-dark rounded p-1 md:p-2 mx-8">
-        <Link href="/LoginPage" className="text-friendly-black font-bold hidden lg:block text-xs md:text-md mr-1 mx-2">
+        <Link href="/" className="text-friendly-black font-bold hidden lg:block text-xs md:text-md mr-1 mx-2">
           Sign Out
         </Link>
         

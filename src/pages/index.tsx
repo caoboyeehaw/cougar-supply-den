@@ -403,7 +403,7 @@ const IndexPage: NextPage = () => {
 
             <p className="flex justify-end text-gray-600 mx-4 text-sm mb-3 "> Date Added: {formatDate(product.date_add)}</p>
 
-            <div className="flex justify-start   bg-cougar-yellow">
+            <div className="flex justify-start bg-cougar-yellow">
             <p className="text-gray-600 mx-4 font-semibold pr-4">Stock: {product.Inv_quantity}</p>
               <p className="text-gray-600 text-md font-semibold">Price:</p>
               <p className="text-gray-600 mx-2 mr-4 text-lg font-bold">{formatCurrency(product.cost)}</p>

@@ -519,7 +519,7 @@ const CheckoutPage: NextPage = () => {
       
       return (
         <div className="relative container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-6">Your Order Confirmation.</h1>
+          <h1 className="text-3xl font-bold mb-6">Checkout Overview.</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
 
             {carts.map((cartItem) => {
@@ -531,23 +531,31 @@ const CheckoutPage: NextPage = () => {
             if (!product) return null;
 
             return (
-                <div key={cartItem.cart_id} className="bg-white p-0 rounded outline-hover-white shadow-lg hover:shadow-2xl">
-                  <Image
-                    src={`${product.url_link}`}
-                    alt={product.Product_id}
-                    width={300}
-                    height={200}
-                    className="rounded-t"
-                    layout="fixed"
-                  />
-                  <h2 className="mt-2 text-xl font-bold mx-4">{product.p_name}</h2>
-                  <p className="text-gray-600 mx-4">Price: ${product.cost}</p>
-                  <p className="text-gray-600 mx-4">Supplier: {product.supp}</p>
-                  <p className="text-gray-600 mx-4 mb-4"></p>
-                  <div className="flex justify-between mx-4 mb-4">
+              <div key={cartItem.cart_id} className="bg-white p-0 rounded outline-hover-white shadow-lg hover:shadow-2xl">
+                <Image
+                  src={`${product.url_link}`}
+                  alt={product.Product_id}
+                  width={300}
+                  height={200}
+                  className="rounded-t"
+                  layout="fixed"
+                />
+                <h2 className="mt-2 text-xl font-bold mx-4">{product.p_name}</h2>
+                <p className="text-gray-600 mx-4">Price: ${product.cost}</p>
+                <p className="text-gray-600 mx-4">Supplier: {product.supp}</p>
+                <p className="text-gray-600 mx-4 mb-4"></p>
+                <div className="flex justify-between mx-4 mb-4">
+                  <div className="flex justify-between items-center w-full">
+                    <label htmlFor="quantity" className="rounded font-semibold bg-cougar-gold px-2">Quantity: {quantity}</label>
+
+                  </div>
+                  <div className="flex justify-between items-center w-full">
+
+                    <label htmlFor="cost" className="rounded font-semibold bg-cougar-gold px-2" >Cost: ${quantity * product.cost}</label>
                   </div>
                 </div>
-              );
+              </div>
+            );
             })}
 
 
