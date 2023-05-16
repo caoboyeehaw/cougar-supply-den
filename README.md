@@ -13,15 +13,9 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
-## Cougar Supply Den Project Details
-COSC 3380, Professor Uma Ramamurthy
-
-Group 10:
+## Cougar Supply Den Contributors
 - Dylan Hoang Cao
 - Benjamin Shek
-- An Thien Pham
-- Damian Barriga
-- Sai P. Harihar
 
 # Project Description:
 This is a full stack Point Of Sales System web application. This application is 
