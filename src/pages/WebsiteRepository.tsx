@@ -15,7 +15,7 @@ const WebsiteRepository: React.FC = () => {
           </p>
           <div className="flex justify-end ">
             <a
-              href="https://github.com/caoboyeehaw/my-chatgpt-app2-main"
+              href="https://github.com/caoboyeehaw/cougar-supply-den"
               className="bg-friendly-black3 hover:bg-blue-500 text-bright-white hover:shadow-lg rounded-lg font-bold text-xl px-4 py-2 flex items-center"
               target="_blank"
               rel="noopener noreferrer"
