@@ -12,9 +12,6 @@ const GroupMemberList: React.FC = () => {
             <ul className="list-disc pl-7 space-y-2 text-gray-700 text-2xl mb-6">
               <li>Member 1: Dylan Hoang Cao</li>
               <li>Member 2: Benjamin Shek</li>
-              <li>Member 3: Sai P. Harihar</li>
-              <li>Member 4: An Thien Pham</li>
-              <li>Member 5: Demian Barriga</li>
             </ul>
           </div>
         </div>

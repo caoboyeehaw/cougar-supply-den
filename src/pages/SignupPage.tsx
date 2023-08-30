@@ -120,18 +120,14 @@ const SignupPage: React.FC = () => {
     return true;
   };
 
-
   const falseClick = (product: Users) => {
     setSelectedProduct(product);
-
   };
-
 
   const handleEditClick = (product: Users) => {
     setShowModal(true);
     setSelectedProduct(product);
   };
-
 
   const handleAddSaveClick = async () => {
     if (newProduct && validateProduct(newProduct)) {
@@ -140,7 +136,6 @@ const SignupPage: React.FC = () => {
       setNewProduct({});
     }
   };
-
 
   const handleSaveClick = async () => {
     if (selectedProduct && validateProduct(selectedProduct)) {
@@ -151,8 +146,6 @@ const SignupPage: React.FC = () => {
 
   };
 
-
-  
   const router = useRouter();
 
   const redirectToSignupSuccessPage = async () => {
@@ -213,7 +206,6 @@ const SignupPage: React.FC = () => {
     setFilteredProducts(products);
   }, [products]);
 
- 
 
 
   return (
@@ -272,13 +264,13 @@ const SignupPage: React.FC = () => {
 
                   <div className="relative flex max-w-[600px]">
                     <input
-                        placeholder="Enter Last Name"
-                        type="text"
-                        id="l_name" 
-                        name="l_name" 
-                        value={newProduct.l_name || ''} onChange={handleInputChange} 
-                        className="bg-gray-200 rounded hover:shadow-lg px-4 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
-                      />
+                      placeholder="Enter Last Name"
+                      type="text"
+                      id="l_name" 
+                      name="l_name" 
+                      value={newProduct.l_name || ''} onChange={handleInputChange} 
+                      className="bg-gray-200 rounded hover:shadow-lg px-4 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
+                    />
                   </div>
 
                   <li className="flex items-start">
@@ -289,13 +281,13 @@ const SignupPage: React.FC = () => {
                   </li>
                   <div className="relative flex max-w-[600px]">
                     <input
-                        placeholder="Enter Date Of Birth"
-                        type="date"
-                        id="dob" 
-                        name="dob" 
-                        value={newProduct.dob?.substring(0, 10)} onChange={handleInputChange}
-                        className="bg-gray-200 text-gray-500 focus:text-friendly-black3 rounded hover:shadow-lg px-4 w-full py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
-                      />
+                      placeholder="Enter Date Of Birth"
+                      type="date"
+                      id="dob" 
+                      name="dob" 
+                      value={newProduct.dob?.substring(0, 10)} onChange={handleInputChange}
+                      className="bg-gray-200 text-gray-500 focus:text-friendly-black3 rounded hover:shadow-lg px-4 w-full py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
+                    />
                   </div>
 
                   <li className="flex items-start">
@@ -306,13 +298,13 @@ const SignupPage: React.FC = () => {
 
                   <div className="relative flex max-w-[600px]">
                   <input
-                        placeholder="Enter Phone Number"
-                        type="text"
-                        id="phone_num" 
-                        name="phone_num" 
-                        value={newProduct.phone_num || ''} onChange={handleInputChange} 
-                        className="bg-gray-200 rounded hover:shadow-lg px-4 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
-                      />
+                    placeholder="Enter Phone Number"
+                    type="text"
+                    id="phone_num" 
+                    name="phone_num" 
+                    value={newProduct.phone_num || ''} onChange={handleInputChange} 
+                    className="bg-gray-200 rounded hover:shadow-lg px-4 py-1 border-2 focus:outline-none border-transparent focus:border-blue-500" 
+                  />
                   </div>
 
 
